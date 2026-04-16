@@ -1,16 +1,15 @@
 import { RestrictToHorizontalAxis } from '@dnd-kit/abstract/modifiers'
-import { DragDropProvider } from '@dnd-kit/react'
+import { DragDropProvider, DragOverlay } from '@dnd-kit/react'
 import { useState } from 'react'
 
-import { TimeTrail } from './TimeTrail'
-import { TrackHandle } from './TrackHandle'
+import { DateTickers } from './DateTickers'
+import { DateTrail } from './DateTrail'
+import { SliderHandle } from './SliderHandle'
 import { RestrictInnerToElement } from './utils/restrict-inner-to-element'
 
 export function DateSlider() {
   const [containerEl, setContainerEl] = useState<HTMLDivElement | null>(null)
   const [trackHandleEl, setTrackHandleEl] = useState<HTMLDivElement | null>(null)
-
-  const [transformX, setTransformX] = useState(0)
 
   return (
     <div ref={setContainerEl} className="relative my-8 h-3 w-full px-2">
@@ -22,16 +21,12 @@ export function DateSlider() {
           }),
           RestrictToHorizontalAxis
         ]}
-        onDragEnd={event => {
-          if (event.canceled) {
-            return
-          }
-
-          setTransformX(prev => prev + event.operation.transform.x)
-        }}
       >
-        <TrackHandle x={transformX} onHandleRef={setTrackHandleEl} />
-        <TimeTrail />
+        <SliderHandle onHandleRef={setTrackHandleEl} />
+        <DateTickers />
+        <DateTrail />
+
+        <DragOverlay>{null}</DragOverlay>
       </DragDropProvider>
     </div>
   )

@@ -1,30 +1,55 @@
 {
   "name": "fancy-calendar",
-  "private": true,
   "version": "0.0.0",
   "type": "module",
+  "description": "A fancy date range picker built with React and Tailwind.",
+  "license": "MIT",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./style.css": "./dist/style.css"
+  },
+  "files": [
+    "dist"
+  ],
+  "sideEffects": [
+    "**/*.css"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "build:lib": "vite build --config vite.lib.config.ts",
+    "prepublishOnly": "yarn build:lib",
     "lint": "eslint .",
     "preview": "vite preview"
   },
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18"
+  },
   "dependencies": {
+    "@dnd-kit/abstract": "^0.4.0",
+    "@dnd-kit/dom": "^0.4.0",
+    "@dnd-kit/geometry": "^0.4.0",
     "@dnd-kit/react": "^0.4.0",
-    "@tailwindcss/vite": "^4.2.2",
+    "@dnd-kit/state": "^0.4.0",
     "clsx": "^2.1.1",
+    "dayjs": "^1.11.20",
     "motion": "^12.38.0",
-    "react": "^19.2.4",
-    "react-dom": "^19.2.4",
+    "motion-plus": "https://api.motion.dev/registry.tgz?package=motion-plus&version=2.10.0&token=924901a20c0ebcbb5d02a033c4af9bb0283aec707a78b61012b5af339b839fe1",
     "react-resizable-panels": "^4.10.0",
-    "tailwind-merge": "^3.5.0",
-    "tailwindcss": "^4.2.2"
+    "zustand": "^5.0.12"
   },
   "devDependencies": {
     "@eslint/compat": "^2.0.5",
     "@eslint/eslintrc": "^3.3.5",
     "@eslint/js": "^9.39.4",
     "@remotion/eslint-plugin": "^4.0.448",
+    "@tailwindcss/vite": "^4.2.2",
     "@types/node": "^24.12.2",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
@@ -43,8 +68,12 @@
     "globals": "^17.4.0",
     "prettier": "^3.8.3",
     "prettier-plugin-tailwindcss": "^0.7.2",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "tailwindcss": "^4.2.2",
     "typescript": "~6.0.2",
     "typescript-eslint": "^8.58.0",
-    "vite": "^8.0.4"
+    "vite": "^8.0.4",
+    "vite-plugin-dts": "^4.5.4"
   }
 }
