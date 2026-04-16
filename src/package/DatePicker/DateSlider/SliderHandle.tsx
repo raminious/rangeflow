@@ -1,7 +1,7 @@
 import { KeyboardSensor, PointerSensor } from '@dnd-kit/dom'
 import { useDragDropMonitor, useDraggable } from '@dnd-kit/react'
 import { clsx } from 'clsx'
-import { useRef } from 'react'
+import { startTransition, useRef } from 'react'
 import {
   Group,
   type GroupImperativeHandle,
@@ -76,9 +76,11 @@ export function SliderHandle({ onHandleRef }: Props) {
 
       groupRef.current.setLayout(data)
 
-      update(draft => {
-        draft.date.start = data[LEFT_SPACER]
-        draft.date.end = data[RIGHT_SPACER]
+      startTransition(() => {
+        update(draft => {
+          draft.date.start = data[LEFT_SPACER]
+          draft.date.end = data[RIGHT_SPACER]
+        })
       })
     },
     onDragEnd: () => {
@@ -98,7 +100,7 @@ export function SliderHandle({ onHandleRef }: Props) {
           minSize={0}
           onResize={data => {
             update(draft => {
-              draft.date.start = Math.round(data.asPercentage)
+              draft.date.start = data.asPercentage
             })
           }}
         >
@@ -114,7 +116,7 @@ export function SliderHandle({ onHandleRef }: Props) {
           minSize={`${HANDLE_MIN_SIZE}%`}
           onResize={data => {
             update(draft => {
-              draft.date.duration = interpolate(Math.round(data.asPercentage))
+              draft.date.duration = interpolate(data.asPercentage)
             })
           }}
         >
@@ -122,7 +124,7 @@ export function SliderHandle({ onHandleRef }: Props) {
             data-track-handle-container=""
             className={clsx(
               'flex items-center justify-center',
-              'h-full rounded-sm border border-gray-400 shadow shadow-slate-200',
+              'h-full rounded-sm border border-gray-300 inset-shadow-sm shadow-gray-300',
               'backdrop-blur-[1.5px]',
               'cursor-default select-none'
             )}
@@ -139,7 +141,7 @@ export function SliderHandle({ onHandleRef }: Props) {
           minSize={0}
           onResize={data => {
             update(draft => {
-              draft.date.end = Math.round(data.asPercentage)
+              draft.date.end = data.asPercentage
             })
           }}
         >

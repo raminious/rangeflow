@@ -10,22 +10,37 @@ export function SelectedDate() {
   const daysInRange = useDaysInRange()
 
   const { start, end } = useMemo(() => {
-    const start = Math.abs(Math.round((date.start / 100) * daysInRange))
-    const days = Math.max(Math.round(daysInRange * (date.duration / 100)), 1)
+    const today = dayjs()
 
-    return {
-      start: dayjs(range.start).add(start, 'day').format('DD MMM'),
-      end: dayjs(range.start)
-        .add(start + days, 'day')
-        .format('DD MMM')
+    const startDay = Math.abs(Math.round((date.start / 100) * daysInRange))
+    const totalDays = Math.max(Math.round(daysInRange * (date.duration / 100)), 1)
+
+    const start = dayjs(range.start).add(startDay, 'day')
+    const end = dayjs(range.start).add(startDay + totalDays, 'day')
+
+    const formatter = start.isSame(end, 'year') ? 'DD MMM' : 'DD MMM YYYY'
+
+    const labels = {
+      start: start.format(formatter),
+      end: end.format(formatter)
     }
+
+    if (today.isSame(start, 'day')) {
+      labels.start = 'Today'
+    }
+
+    if (today.isSame(end, 'day')) {
+      labels.end = 'Today'
+    }
+
+    return labels
   }, [daysInRange, date.start, date.duration, range.start])
 
   return (
-    <div className="flex items-center gap-2 text-xs font-medium text-gray-700 select-none">
-      <span>{start}</span>
+    <div className="flex items-center gap-2 text-xs font-bold text-gray-700 select-none">
+      {start}
       <span className="text-gray-400">—</span>
-      <span>{end}</span>
+      {end}
     </div>
   )
 }

@@ -29,11 +29,11 @@ export function RangeTabs() {
               handleTabChange(index)
             }}
           >
-            <span className="relative z-1 text-xs font-medium">{tab.label}</span>
+            <span className="relative z-1 text-xs text-gray-700">{tab.label}</span>
 
             {activeIndex === index && (
               <motion.div
-                className="absolute inset-0 rounded-xl bg-slate-300"
+                className="absolute inset-0 rounded-sm bg-slate-300"
                 layoutId="tab-indicator"
                 transition={{
                   type: 'spring',

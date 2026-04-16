@@ -1,9 +1,10 @@
 import clsx from 'clsx'
-import { useMemo } from 'react'
+import { memo, useMemo } from 'react'
 
 import { useDaysInRange } from '../hooks/use-days-in-range'
 import { useStore } from '../hooks/use-store'
-export function SliderValue() {
+
+export const SliderValue = memo(() => {
   const daysInRange = useDaysInRange()
   const duration = useStore(state => state.date.duration)
 
@@ -28,4 +29,4 @@ export function SliderValue() {
       {label}
     </div>
   )
-}
+})

@@ -1,8 +1,8 @@
 import clsx from 'clsx'
 import dayjs from 'dayjs'
-import { ScrambleText } from 'motion-plus/react'
 import { memo, useMemo } from 'react'
 
+import { OdometerText } from '../components/OdometerText'
 import { useDaysInRange } from '../hooks/use-days-in-range'
 import { useStore } from '../hooks/use-store'
 
@@ -14,10 +14,10 @@ function getLabelFormat(daysInRange: number): string {
   }
 
   if (daysInRange > 7) {
-    return 'MMM D'
+    return 'MMM DD'
   }
 
-  return 'ddd D'
+  return 'ddd DD'
 }
 
 export const DateTrail = memo(() => {
@@ -39,22 +39,20 @@ export const DateTrail = memo(() => {
   return (
     <div
       className={clsx(
-        'flex w-full items-center justify-between',
-        'absolute top-8 left-0 px-2',
-        'text-xs text-gray-500 uppercase'
+        'flex w-full items-center justify-between select-none',
+        'absolute top-10 left-0 px-2',
+        'text-xs tracking-tighter text-gray-400 uppercase'
       )}
     >
       {labels.map((label, index) => (
-        <ScrambleText
+        <OdometerText
           key={index}
-          chars="◴◵◶◷"
-          duration={0.2}
           className={clsx({
             'font-medium text-gray-700': index === 0 || index === labels.length - 1
           })}
         >
           {label}
-        </ScrambleText>
+        </OdometerText>
       ))}
     </div>
   )
