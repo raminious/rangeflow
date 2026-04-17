@@ -27,7 +27,7 @@ export function SliderThumb({ onHandleRef }: Props) {
       minSize={`${SLIDER_THUMB_MIN_SIZE}%`}
       onResize={({ asPercentage }) => {
         startTransition(() => {
-          // updateSelectedDate(asPercentage)
+          updateSelectedDate(asPercentage)
 
           update(draft => {
             draft.slider.size = asPercentage

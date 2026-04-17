@@ -10,27 +10,25 @@ export function createSliderValues(
     to: Date
   }
 ) {
-  const daysInRange = dayjs(range.end).diff(dayjs(range.start), 'day')
+  const fromDay = dayjs(selected.from).startOf('day')
+  const toDay = dayjs(selected.to).startOf('day')
 
-  const daysCount = dayjs(selected.to).diff(dayjs(selected.from), 'day')
-  const daysAsPercentage = Math.round((daysCount * 100) / daysInRange)
+  const rangeStart = dayjs(range.start).startOf('day')
+  const rangeEnd = dayjs(range.end).startOf('day')
+  const daysInRange = rangeEnd.diff(rangeStart, 'day')
+
+  const pastDays = Math.max(fromDay.diff(rangeStart, 'day'), 0)
+  const selectedDays = Math.max(toDay.diff(fromDay, 'day'), 0)
+
+  const sizePercent = (selectedDays * 100) / daysInRange
+  const leftPercent = (pastDays * 100) / daysInRange
 
   const toVisual = interpolate([1, 100], [SLIDER_THUMB_MIN_SIZE, 100])
-  const sliderSize = Math.max(toVisual(daysAsPercentage), SLIDER_THUMB_MIN_SIZE)
-  const interpolateDiff = sliderSize - daysAsPercentage
+  const size = Math.max(toVisual(sizePercent), SLIDER_THUMB_MIN_SIZE)
+  const inflation = size - sizePercent
 
-  const leftDiff = dayjs(selected.from).diff(range.start, 'day')
-  const leftSizeAsPercentage = Math.round((leftDiff * 100) / daysInRange) - interpolateDiff
+  const left = Math.min(Math.max(leftPercent - inflation, 0), Math.max(100 - size, 0))
+  const right = Math.max(100 - (left + size), 0)
 
-  console.log(selected, range, {
-    size: sliderSize,
-    left: leftSizeAsPercentage,
-    right: Math.max(100 - Math.min(leftSizeAsPercentage + sliderSize, 100), 0)
-  })
-
-  return {
-    size: sliderSize,
-    left: leftSizeAsPercentage,
-    right: Math.max(100 - Math.min(leftSizeAsPercentage + sliderSize, 100), 0)
-  }
+  return { size, left, right }
 }
