@@ -6,9 +6,8 @@ import { Group, type Layout, Separator } from 'react-resizable-panels'
 
 import { useUpdateSelectedDate } from '@/package/RangeDatePicker/hooks/use-update-selected-date'
 
-import { SLIDER_LEFT_SPACER, SLIDER_RIGHT_SPACER, SLIDER_THUMB } from '../../../constants/slider'
+import { SLIDER_LEFT_SPACER, SLIDER_RIGHT_SPACER } from '../../../constants/slider'
 import { useDatePickerRefs } from '../../../hooks/use-date-picker-refs'
-import { useDatePickerStore } from '../../../hooks/use-date-picker-store'
 import { SliderLeftSpacer } from './SliderLeftSpacer'
 import { SliderRightSpacer } from './SliderRightSpacer'
 import { SliderThumb } from './SliderThumb'
@@ -63,16 +62,11 @@ export function Slider({ onHandleRef }: Props) {
       const deltaPercent = (event.operation.transform.x / groupElementRef.current.clientWidth) * 100
       const layout = layoutRef.current
 
-      const data = {
+      // setLayout triggers Group.onLayoutChange, which drives updateSelectedDate.
+      rootRef.current.setLayout({
         ...layout,
         [SLIDER_LEFT_SPACER]: layout[SLIDER_LEFT_SPACER] + deltaPercent,
         [SLIDER_RIGHT_SPACER]: layout[SLIDER_RIGHT_SPACER] - deltaPercent
-      }
-
-      rootRef.current.setLayout(data)
-
-      startTransition(() => {
-        updateSelectedDate(layout[SLIDER_THUMB])
       })
     },
     onDragEnd: () => {
@@ -85,7 +79,14 @@ export function Slider({ onHandleRef }: Props) {
       ref={ref}
       className={clsx('absolute top-[50%] left-0 z-1 -translate-y-[50%]', 'h-7 w-full')}
     >
-      <Group className="group h-full w-full" elementRef={groupElementRef} groupRef={rootRef}>
+      <Group
+        className="group h-full w-full"
+        elementRef={groupElementRef}
+        groupRef={rootRef}
+        onLayoutChange={layout => {
+          startTransition(() => updateSelectedDate(layout))
+        }}
+      >
         <SliderLeftSpacer />
         <Separator className={separatorClassName} />
         <SliderThumb onHandleRef={onHandleRef} />

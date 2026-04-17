@@ -1,8 +1,6 @@
 import clsx from 'clsx'
-import { startTransition, useState } from 'react'
+import { useState } from 'react'
 import { Panel } from 'react-resizable-panels'
-
-import { useUpdateSelectedDate } from '@/package/RangeDatePicker/hooks/use-update-selected-date'
 
 import { SLIDER_THUMB, SLIDER_THUMB_MIN_SIZE } from '../../../constants/slider'
 import { useDatePickerStore } from '../../../hooks/use-date-picker-store'
@@ -14,8 +12,6 @@ interface Props {
 
 export function SliderThumb({ onHandleRef }: Props) {
   const size = useDatePickerStore(state => state.slider.size)
-  const updateSelectedDate = useUpdateSelectedDate()
-
   const [defaultSize] = useState(() => size)
 
   return (
@@ -24,11 +20,6 @@ export function SliderThumb({ onHandleRef }: Props) {
       elementRef={onHandleRef}
       id={SLIDER_THUMB}
       minSize={`${SLIDER_THUMB_MIN_SIZE}%`}
-      onResize={({ asPercentage }) => {
-        startTransition(() => {
-          updateSelectedDate(asPercentage)
-        })
-      }}
     >
       <div
         data-track-handle-container=""

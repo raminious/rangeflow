@@ -1,29 +1,22 @@
 import clsx from 'clsx'
+import dayjs from 'dayjs'
 import { memo, useMemo } from 'react'
 
-import { SLIDER_THUMB_MIN_SIZE } from '../../constants/slider'
 import { useDatePickerStore } from '../../hooks/use-date-picker-store'
-import { useDaysInRange } from '../../hooks/use-days-in-range'
-import { interpolate } from '../../utils/interpolate'
-
-// Inverse of the `toVisual` mapping in createSliderValues.
-const fromVisual = interpolate([SLIDER_THUMB_MIN_SIZE, 100], [1, 100])
 
 export const SliderValue = memo(() => {
   const size = useDatePickerStore(state => state.slider.size)
-  const range = useDatePickerStore(state => state.range)
-  const daysInRange = useDaysInRange(range)
+  const selected = useDatePickerStore(state => state.selected_date)
 
   const label = useMemo(() => {
-    const rawSize = fromVisual(Math.ceil(size))
-    const days = Math.max(Math.round((daysInRange * rawSize) / 100), 1)
+    const days = Math.max(dayjs(selected.to).diff(selected.from, 'day'), 1)
 
     if (size < 10) {
       return `${days}D`
     }
 
     return days === 1 ? '1 Day' : `${days} Days`
-  }, [daysInRange, size])
+  }, [selected.from, selected.to, size])
 
   return (
     <div

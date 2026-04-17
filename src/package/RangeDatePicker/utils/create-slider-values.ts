@@ -16,10 +16,6 @@ export function createSliderValues(
   const rangeStart = dayjs(range.start).startOf('day')
   const daysInRange = dayjs(range.end).startOf('day').diff(rangeStart, 'day')
 
-  if (daysInRange <= 0) {
-    return { size: SLIDER_THUMB_MIN_SIZE, left: 0, right: 100 - SLIDER_THUMB_MIN_SIZE }
-  }
-
   const fromDay = dayjs(selected.from).startOf('day')
   const toDay = dayjs(selected.to).startOf('day')
 
@@ -36,5 +32,9 @@ export function createSliderValues(
   const left = clamp(rawLeft - inflation, 0, Math.max(100 - size, 0))
   const right = Math.max(100 - left - size, 0)
 
-  return { size, left, right }
+  return {
+    size,
+    left,
+    right
+  }
 }
