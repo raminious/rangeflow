@@ -2,13 +2,13 @@ import clsx from 'clsx'
 import { memo, useMemo } from 'react'
 
 import { SLIDER_THUMB_MIN_SIZE } from '../../constants/slider'
+import { useDatePickerStore } from '../../hooks/use-date-picker-store'
 import { useDaysInRange } from '../../hooks/use-days-in-range'
-import { useStore } from '../../hooks/use-store'
 import { interpolate } from '../../utils/interpolate'
 
 export const SliderValue = memo(() => {
-  const size = useStore(state => state.slider.size)
-  const range = useStore(state => state.range)
+  const size = useDatePickerStore(state => state.slider.size)
+  const range = useDatePickerStore(state => state.range)
   const daysInRange = useDaysInRange(range)
 
   const label = useMemo(() => {

@@ -4,7 +4,7 @@ import { memo, useMemo } from 'react'
 
 import { OdometerText } from '../../animations/OdometerText'
 import { useDaysInRange } from '../../hooks/use-days-in-range'
-import { useStore } from '../../hooks/use-store'
+import { useDatePickerStore } from '../../hooks/use-date-picker-store'
 
 function getLabelFormat(daysInRange: number): string {
   if (daysInRange > 120) {
@@ -35,7 +35,7 @@ function getLabelCount(daysInRange: number): number {
 }
 
 export const DateLabelsTrack = memo(() => {
-  const range = useStore(state => state.range)
+  const range = useDatePickerStore(state => state.range)
   const daysInRange = useDaysInRange(range)
 
   const labels = useMemo(() => {

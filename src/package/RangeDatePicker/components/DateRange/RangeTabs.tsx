@@ -3,10 +3,10 @@ import { motion } from 'motion/react'
 import { useState } from 'react'
 
 import { DateRanges } from '../../constants/date-ranges'
-import { useStore } from '../../hooks/use-store'
+import { useDatePickerStore } from '../../hooks/use-date-picker-store'
 
 export function RangeTabs() {
-  const update = useStore(state => state.update)
+  const update = useDatePickerStore(state => state.update)
   const [activeIndex, setActiveIndex] = useState(0)
 
   const handleTabChange = (index: number) => {

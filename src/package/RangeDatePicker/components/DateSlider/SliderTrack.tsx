@@ -1,10 +1,9 @@
 import dayjs from 'dayjs'
 
-import { DoubleChevronLeftIcon } from '@/package/RangeDatePicker/icons/DoubleChevronLeftIcon'
-import { DoubleChevronRightIcon } from '@/package/RangeDatePicker/icons/DoubleChevronRightIcon'
-
+import { useDatePickerStore } from '../../hooks/use-date-picker-store'
 import { useDaysInRange } from '../../hooks/use-days-in-range'
-import { useStore } from '../../hooks/use-store'
+import { DoubleChevronLeftIcon } from '../../icons/DoubleChevronLeftIcon'
+import { DoubleChevronRightIcon } from '../../icons/DoubleChevronRightIcon'
 import { DateTickers } from './DateTickers'
 import { RangeStepButton } from './RangeStepButton'
 import { Slider } from './Slider'
@@ -14,8 +13,8 @@ interface Props {
 }
 
 export function SliderTrack({ onHandleRef }: Props) {
-  const update = useStore(state => state.update)
-  const daysInRange = useDaysInRange(useStore(state => state.range))
+  const update = useDatePickerStore(state => state.update)
+  const daysInRange = useDaysInRange(useDatePickerStore(state => state.range))
 
   const handleMoveBackward = () => {
     update(draft => {

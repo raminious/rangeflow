@@ -2,10 +2,13 @@ import { KeyboardSensor, PointerSensor } from '@dnd-kit/dom'
 import { useDragDropMonitor, useDraggable } from '@dnd-kit/react'
 import { clsx } from 'clsx'
 import { startTransition, useRef } from 'react'
-import { Group, type GroupImperativeHandle, type Layout, Separator } from 'react-resizable-panels'
+import { Group, type Layout, Separator } from 'react-resizable-panels'
+
+import { useUpdateSelectedDate } from '@/package/RangeDatePicker/hooks/use-update-selected-date'
 
 import { SLIDER_LEFT_SPACER, SLIDER_RIGHT_SPACER } from '../../../constants/slider'
-import { useStore } from '../../../hooks/use-store'
+import { useDatePickerRefs } from '../../../hooks/use-date-picker-refs'
+import { useDatePickerStore } from '../../../hooks/use-date-picker-store'
 import { SliderLeftSpacer } from './SliderLeftSpacer'
 import { SliderRightSpacer } from './SliderRightSpacer'
 import { SliderThumb } from './SliderThumb'
@@ -15,9 +18,13 @@ interface Props {
 }
 
 export function Slider({ onHandleRef }: Props) {
-  const update = useStore(state => state.update)
+  const update = useDatePickerStore(state => state.update)
+  const updateSelectedDate = useUpdateSelectedDate()
 
-  const groupRef = useRef<GroupImperativeHandle | null>(null)
+  const {
+    slider: { root: rootRef }
+  } = useDatePickerRefs()
+
   const groupElementRef = useRef<HTMLDivElement | null>(null)
   const layoutRef = useRef<Layout | null>(null)
 
@@ -42,11 +49,11 @@ export function Slider({ onHandleRef }: Props) {
 
   useDragDropMonitor({
     onDragStart: () => {
-      layoutRef.current = groupRef.current?.getLayout() ?? null
+      layoutRef.current = rootRef.current?.getLayout() ?? null
     },
     onDragMove: event => {
       if (
-        !groupRef.current ||
+        !rootRef.current ||
         !layoutRef.current ||
         !groupElementRef.current ||
         !groupElementRef.current.clientWidth
@@ -56,19 +63,19 @@ export function Slider({ onHandleRef }: Props) {
 
       const deltaPercent = (event.operation.transform.x / groupElementRef.current.clientWidth) * 100
 
-      const data = {
+      rootRef.current.setLayout({
         ...layoutRef.current,
         [SLIDER_LEFT_SPACER]: layoutRef.current[SLIDER_LEFT_SPACER] + deltaPercent,
         [SLIDER_RIGHT_SPACER]: layoutRef.current[SLIDER_RIGHT_SPACER] - deltaPercent
-      }
-
-      groupRef.current.setLayout(data)
+      })
 
       startTransition(() => {
         update(draft => {
           draft.slider.left = data[SLIDER_LEFT_SPACER]
           draft.slider.right = data[SLIDER_RIGHT_SPACER]
         })
+
+        // updateSelectedDate(layoutRef.current?.[SLIDER_THUMB])
       })
     },
     onDragEnd: () => {
@@ -81,7 +88,7 @@ export function Slider({ onHandleRef }: Props) {
       ref={ref}
       className={clsx('absolute top-[50%] left-0 z-1 -translate-y-[50%]', 'h-7 w-full')}
     >
-      <Group className="group h-full w-full" elementRef={groupElementRef} groupRef={groupRef}>
+      <Group className="group h-full w-full" elementRef={groupElementRef} groupRef={rootRef}>
         <SliderLeftSpacer />
         <Separator className={separatorClassName} />
         <SliderThumb onHandleRef={onHandleRef} />

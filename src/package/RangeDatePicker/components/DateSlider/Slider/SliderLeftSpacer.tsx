@@ -1,12 +1,12 @@
-import { useState } from 'react'
+import { startTransition, useState } from 'react'
 import { Panel } from 'react-resizable-panels'
 
-import { SLIDER_LEFT_SPACER } from '@/package/RangeDatePicker/constants/slider'
-import { useStore } from '@/package/RangeDatePicker/hooks/use-store'
+import { SLIDER_LEFT_SPACER } from '../../../constants/slider'
+import { useDatePickerStore } from '../../../hooks/use-date-picker-store'
 
 export function SliderLeftSpacer() {
-  const size = useStore(state => state.slider.left)
-  const update = useStore(state => state.update)
+  const size = useDatePickerStore(state => state.slider.left)
+  const update = useDatePickerStore(state => state.update)
 
   const [defaultSize] = useState(() => size)
 
@@ -16,8 +16,10 @@ export function SliderLeftSpacer() {
       id={SLIDER_LEFT_SPACER}
       minSize={0}
       onResize={({ asPercentage }) => {
-        update(draft => {
-          draft.slider.left = asPercentage
+        startTransition(() => {
+          update(draft => {
+            draft.slider.left = asPercentage
+          })
         })
       }}
     >

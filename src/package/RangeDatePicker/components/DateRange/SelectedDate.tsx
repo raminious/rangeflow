@@ -1,23 +1,17 @@
 import dayjs from 'dayjs'
 import { useMemo } from 'react'
 
-import { useDaysInRange } from '../../hooks/use-days-in-range'
-import { useStore } from '../../hooks/use-store'
+import { useDatePickerStore } from '../../hooks/use-date-picker-store'
 import { CalendarIcon } from '../../icons/CalendarIcon'
 
 export function SelectedDate() {
-  const range = useStore(state => state.range)
-  const date = useStore(state => state.slider)
-  const daysInRange = useDaysInRange(range)
+  const date = useDatePickerStore(state => state.selected_date)
 
   const { start, end } = useMemo(() => {
     const today = dayjs()
 
-    const startDay = Math.abs((date.left / 100) * daysInRange)
-    const totalDays = Math.max(daysInRange * (date.size / 100), 1)
-
-    const start = dayjs(range.start).add(startDay, 'day')
-    const end = dayjs(range.start).add(startDay + totalDays, 'day')
+    const start = dayjs(date.from)
+    const end = dayjs(date.to)
 
     const formatter = start.isSame(end, 'year') ? 'DD MMM' : 'DD MMM YYYY'
 
@@ -35,7 +29,7 @@ export function SelectedDate() {
     }
 
     return labels
-  }, [daysInRange, date.left, date.size, range.start])
+  }, [date.from, date.to])
 
   return (
     <div className="hover:text-accent/90 text-accent flex items-center gap-2 text-xs font-medium select-none">

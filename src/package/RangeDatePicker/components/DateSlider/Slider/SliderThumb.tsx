@@ -1,10 +1,11 @@
 import clsx from 'clsx'
-import { useState } from 'react'
+import { startTransition, useState } from 'react'
 import { Panel } from 'react-resizable-panels'
 
-import { SLIDER_THUMB, SLIDER_THUMB_MIN_SIZE } from '@/package/RangeDatePicker/constants/slider'
-import { useStore } from '@/package/RangeDatePicker/hooks/use-store'
+import { useUpdateSelectedDate } from '@/package/RangeDatePicker/hooks/use-update-selected-date'
 
+import { SLIDER_THUMB, SLIDER_THUMB_MIN_SIZE } from '../../../constants/slider'
+import { useDatePickerStore } from '../../../hooks/use-date-picker-store'
 import { SliderValue } from '../SliderValue'
 
 interface Props {
@@ -12,8 +13,9 @@ interface Props {
 }
 
 export function SliderThumb({ onHandleRef }: Props) {
-  const update = useStore(state => state.update)
-  const size = useStore(state => state.slider.size)
+  const update = useDatePickerStore(state => state.update)
+  const size = useDatePickerStore(state => state.slider.size)
+  const updateSelectedDate = useUpdateSelectedDate()
 
   const [defaultSize] = useState(() => size)
 
@@ -24,8 +26,12 @@ export function SliderThumb({ onHandleRef }: Props) {
       id={SLIDER_THUMB}
       minSize={`${SLIDER_THUMB_MIN_SIZE}%`}
       onResize={({ asPercentage }) => {
-        update(draft => {
-          draft.slider.size = asPercentage
+        startTransition(() => {
+          // updateSelectedDate(asPercentage)
+
+          update(draft => {
+            draft.slider.size = asPercentage
+          })
         })
       }}
     >

@@ -1,8 +1,10 @@
-import { useDaysInRange } from '../../hooks/use-days-in-range'
-import { useStore } from '../../hooks/use-store'
+import { memo } from 'react'
 
-export const DateTickers = () => {
-  const tickers = Math.min(Math.max(70, useDaysInRange(useStore(state => state.range))), 100)
+import { useDaysInRange } from '../../hooks/use-days-in-range'
+import { useDatePickerStore } from '../../hooks/use-date-picker-store'
+
+export const DateTickers = memo(() => {
+  const tickers = Math.min(Math.max(70, useDaysInRange(useDatePickerStore(state => state.range))), 100)
 
   return (
     <div className="flex items-center gap-2">
@@ -13,4 +15,4 @@ export const DateTickers = () => {
       </div>
     </div>
   )
-}
+})
