@@ -1,20 +1,24 @@
 import clsx from 'clsx'
+import dayjs from 'dayjs'
 import { motion } from 'motion/react'
-import { useState } from 'react'
+import { useMemo } from 'react'
 
 import { DateRanges } from '../../constants/date-ranges'
 import { useDatePickerStore } from '../../hooks/use-date-picker-store'
-import { useApplySliderLayout } from './hooks/use-apply-slider-layout'
 
 export function RangeTabs() {
   const update = useDatePickerStore(state => state.update)
-  const [activeIndex, setActiveIndex] = useState(0)
+  const range = useDatePickerStore(state => state.range)
 
-  useApplySliderLayout()
+  // useApplySliderLayout()
 
-  const handleTabChange = (index: number) => {
-    setActiveIndex(index)
-  }
+  const activeIndex = useMemo(
+    () =>
+      DateRanges.findIndex(
+        item => dayjs(item.from).isSame(range.from, 'day') && dayjs(item.to).isSame(range.to, 'day')
+      ),
+    [range.from, range.to]
+  )
 
   return (
     <div className="flex items-center justify-center">
@@ -28,8 +32,6 @@ export function RangeTabs() {
                 draft.range.from = tab.from
                 draft.range.to = tab.to
               })
-
-              handleTabChange(index)
             }}
           >
             <span

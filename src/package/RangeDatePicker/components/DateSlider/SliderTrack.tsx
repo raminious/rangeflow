@@ -20,7 +20,7 @@ export function SliderTrack({ onHandleRef }: Props) {
     update(draft => {
       draft.range.from = dayjs(draft.range.from)
         .subtract(daysInRange / 2, 'day')
-        .toString()
+        .toDate()
     })
   }
 
@@ -28,7 +28,7 @@ export function SliderTrack({ onHandleRef }: Props) {
     update(draft => {
       draft.range.to = dayjs(draft.range.to)
         .add(daysInRange / 2, 'day')
-        .toString()
+        .toDate()
     })
   }
 
