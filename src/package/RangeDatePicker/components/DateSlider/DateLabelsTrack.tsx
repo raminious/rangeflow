@@ -34,7 +34,7 @@ function getLabelCount(daysInRange: number): number {
   return Math.min(daysInRange + 1, 8)
 }
 
-export const DateTrail = memo(() => {
+export const DateLabelsTrack = memo(() => {
   const range = useStore(state => state.range)
   const daysInRange = useDaysInRange(range)
 

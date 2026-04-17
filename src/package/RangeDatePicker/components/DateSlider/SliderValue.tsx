@@ -26,7 +26,8 @@ export const SliderValue = memo(() => {
     <div
       data-track-handle="true"
       className={clsx(
-        'flex h-full w-[70%] cursor-grab items-center justify-center',
+        'flex h-full w-full items-center justify-center',
+        'mx-[clamp(0.5rem,5vw,5%)] cursor-grab',
         'text-xs font-medium text-nowrap text-gray-900'
       )}
     >

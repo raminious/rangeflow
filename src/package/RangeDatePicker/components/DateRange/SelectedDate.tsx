@@ -37,7 +37,7 @@ export function SelectedDate() {
   }, [daysInRange, date.left, date.size, range.start])
 
   return (
-    <div className="hover:text-accent/90 text-accent flex items-center gap-2 text-xs font-bold select-none">
+    <div className="hover:text-accent/90 text-accent flex items-center gap-2 text-xs font-medium select-none">
       {start}
       <span className="text-gray-400">—</span>
       {end}
