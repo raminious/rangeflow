@@ -5,12 +5,13 @@ import { useMemo } from 'react'
 
 import { DateRanges } from '../../constants/date-ranges'
 import { useDatePickerStore } from '../../hooks/use-date-picker-store'
+import { useApplySliderLayout } from './hooks/use-apply-slider-layout'
 
 export function RangeTabs() {
   const update = useDatePickerStore(state => state.update)
   const range = useDatePickerStore(state => state.range)
 
-  // useApplySliderLayout()
+  useApplySliderLayout()
 
   const activeIndex = useMemo(
     () =>

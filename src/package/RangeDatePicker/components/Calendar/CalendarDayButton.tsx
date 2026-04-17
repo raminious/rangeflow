@@ -27,7 +27,7 @@ export function CalendarDayButton({ className, day: _day, modifiers, ...props }:
         'text-xs text-gray-700 transition-colors',
         'hover:bg-slate-100',
         'focus-visible:ring-1 focus-visible:ring-slate-400 focus-visible:outline-none',
-        'data-[today=true]:font-bold data-[today=true]:text-slate-900',
+        'data-[today=true]:font-bold data-[today=true]:text-slate-500',
         'data-[selected=true]:bg-slate-800 data-[selected=true]:text-white data-[selected=true]:hover:bg-slate-800',
         'data-[range-start=true]:bg-slate-800 data-[range-start=true]:text-white',
         'data-[range-end=true]:bg-slate-800 data-[range-end=true]:text-white',

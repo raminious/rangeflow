@@ -62,11 +62,13 @@ export function Slider({ onHandleRef }: Props) {
       const deltaPercent = (event.operation.transform.x / groupElementRef.current.clientWidth) * 100
       const layout = layoutRef.current
 
-      // setLayout triggers Group.onLayoutChange, which drives updateSelectedDate.
+      const spacer = layout[SLIDER_LEFT_SPACER] + layout[SLIDER_RIGHT_SPACER]
+      const nextLeft = Math.min(Math.max(layout[SLIDER_LEFT_SPACER] + deltaPercent, 0), spacer)
+
       rootRef.current.setLayout({
         ...layout,
-        [SLIDER_LEFT_SPACER]: layout[SLIDER_LEFT_SPACER] + deltaPercent,
-        [SLIDER_RIGHT_SPACER]: layout[SLIDER_RIGHT_SPACER] - deltaPercent
+        [SLIDER_LEFT_SPACER]: nextLeft,
+        [SLIDER_RIGHT_SPACER]: spacer - nextLeft
       })
     },
     onDragEnd: () => {

@@ -47,6 +47,7 @@ export function CalendarDatePicker({ children }: Props) {
           mode="range"
           numberOfMonths={2}
           selected={date}
+          showOutsideDays={false}
           onSelect={nextDate => {
             if (!nextDate?.from || !nextDate?.to) {
               return
