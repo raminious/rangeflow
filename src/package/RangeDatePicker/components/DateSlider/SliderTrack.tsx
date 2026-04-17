@@ -1,7 +1,7 @@
 import dayjs from 'dayjs'
 
-import { DoubleChevronLeft } from '@/package/RangeDatePicker/icons/DoubleChevronLeft'
-import { DoubleChevronRight } from '@/package/RangeDatePicker/icons/DoubleChevronRight'
+import { DoubleChevronLeftIcon } from '@/package/RangeDatePicker/icons/DoubleChevronLeftIcon'
+import { DoubleChevronRightIcon } from '@/package/RangeDatePicker/icons/DoubleChevronRightIcon'
 
 import { useDaysInRange } from '../../hooks/use-days-in-range'
 import { useStore } from '../../hooks/use-store'
@@ -36,7 +36,7 @@ export function SliderTrack({ onHandleRef }: Props) {
   return (
     <div className="flex items-center">
       <RangeStepButton onClick={handleMoveBackward}>
-        <DoubleChevronLeft />
+        <DoubleChevronLeftIcon />
       </RangeStepButton>
 
       <div className="relative flex-1 px-2">
@@ -45,7 +45,7 @@ export function SliderTrack({ onHandleRef }: Props) {
       </div>
 
       <RangeStepButton onClick={handleMoveForward}>
-        <DoubleChevronRight />
+        <DoubleChevronRightIcon />
       </RangeStepButton>
     </div>
   )

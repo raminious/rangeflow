@@ -3,6 +3,7 @@ import { useMemo } from 'react'
 
 import { useDaysInRange } from '../../hooks/use-days-in-range'
 import { useStore } from '../../hooks/use-store'
+import { CalendarIcon } from '../../icons/CalendarIcon'
 
 export function SelectedDate() {
   const range = useStore(state => state.range)
@@ -38,6 +39,7 @@ export function SelectedDate() {
 
   return (
     <div className="hover:text-accent/90 text-accent flex items-center gap-2 text-xs font-medium select-none">
+      <CalendarIcon />
       {start}
       <span className="text-gray-400">—</span>
       {end}
