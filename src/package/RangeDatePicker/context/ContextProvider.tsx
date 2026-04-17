@@ -1,6 +1,6 @@
 import { type ReactNode, useMemo, useState } from 'react'
 
-import { DateRanges } from '../constants/date-ranges'
+import { DefaultRangesList } from '../constants/date-ranges'
 import type { DatePickerProps } from '../types'
 import { createSliderValues } from '../utils/create-slider-values'
 import { useContextEvents } from './hooks/use-context-events'
@@ -11,20 +11,28 @@ interface Props extends DatePickerProps {
   children: ReactNode
 }
 
-export function ContextProvider({ children, default_selected, onChange }: Props) {
-  const range = DateRanges[0]
+export function ContextProvider({
+  children,
+  defaultRange,
+  defaultSelected,
+  ranges = DefaultRangesList,
+  onChange
+}: Props) {
+  const range = DefaultRangesList[0]
 
   const contextRefs = useContextRefs()
   const contextEvents = useContextEvents({ onChange })
 
   const [store] = useState(() =>
     createDatePickerStore({
+      ranges,
       range: {
         from: range.from,
         to: range.to
       },
-      selected_date: default_selected,
-      slider: createSliderValues(range, default_selected)
+      default_range: defaultRange,
+      selected_date: defaultSelected,
+      slider: createSliderValues(range, defaultSelected)
     })
   )
 

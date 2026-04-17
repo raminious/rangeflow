@@ -3,11 +3,12 @@ import dayjs from 'dayjs'
 import { motion } from 'motion/react'
 import { useMemo } from 'react'
 
-import { DateRanges } from '../../constants/date-ranges'
+import { DefaultRangesList } from '../../constants/date-ranges'
 import { useDatePickerStore } from '../../hooks/use-date-picker-store'
 import { useApplySliderLayout } from './hooks/use-apply-slider-layout'
 
 export function RangeTabs() {
+  const list = useDatePickerStore(state => state.ranges)
   const update = useDatePickerStore(state => state.update)
   const range = useDatePickerStore(state => state.range)
 
@@ -15,7 +16,7 @@ export function RangeTabs() {
 
   const activeIndex = useMemo(
     () =>
-      DateRanges.findIndex(
+      DefaultRangesList.findIndex(
         item => dayjs(item.from).isSame(range.from, 'day') && dayjs(item.to).isSame(range.to, 'day')
       ),
     [range.from, range.to]
@@ -24,14 +25,14 @@ export function RangeTabs() {
   return (
     <div className="flex items-center justify-center">
       <div className="flex items-center">
-        {DateRanges.map((tab, index) => (
+        {list.map((item, index) => (
           <button
-            key={tab.id}
+            key={`${item.from.getDate()}_${item.to.getDate()}`}
             className={clsx('relative z-1 flex items-center px-1.5 py-1')}
             onClick={() => {
               update(draft => {
-                draft.range.from = tab.from
-                draft.range.to = tab.to
+                draft.range.from = item.from
+                draft.range.to = item.to
               })
             }}
           >
@@ -40,7 +41,7 @@ export function RangeTabs() {
                 'font-medium text-gray-900': activeIndex === index
               })}
             >
-              {tab.label}
+              {item.label}
             </span>
 
             {activeIndex === index && (
