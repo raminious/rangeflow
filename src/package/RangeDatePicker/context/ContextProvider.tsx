@@ -12,7 +12,7 @@ interface Props extends DatePickerProps {
 }
 
 export function ContextProvider({ children, default_selected, onChange }: Props) {
-  const range = DateRanges[4]
+  const range = DateRanges[0]
 
   const contextRefs = useContextRefs()
   const contextEvents = useContextEvents({ onChange })
