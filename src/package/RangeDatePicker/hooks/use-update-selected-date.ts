@@ -2,10 +2,12 @@ import { useCallback } from 'react'
 import type { Layout } from 'react-resizable-panels'
 
 import { deriveSelectionFromLayout } from '../utils/derive-selection-from-layout'
+import { useDatePickerEvents } from './use-date-picker-events'
 import { useDatePickerStoreApi } from './use-date-picker-store-api'
 
 export function useUpdateSelectedDate() {
   const store = useDatePickerStoreApi()
+  const { onChange } = useDatePickerEvents()
 
   return useCallback(
     (layout: Layout) => {
@@ -18,7 +20,9 @@ export function useUpdateSelectedDate() {
         draft.slider.right = right
         draft.selected_date = { from, to }
       })
+
+      onChange({ from, to })
     },
-    [store]
+    [store, onChange]
   )
 }

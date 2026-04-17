@@ -22,13 +22,17 @@ export interface DatePickerState {
   }
 }
 
-export interface Actions {
+export interface DatePickerEvents {
+  onChange: (date: DateRange) => void
+}
+
+export interface DatePickerActions {
   update: (fn: UpdaterFunction) => void
   reset: () => void
 }
 
 export const createDatePickerStore = (initialState: DatePickerState) => {
-  return createStore<DatePickerState & Actions>()(set => ({
+  return createStore<DatePickerState & DatePickerActions>()(set => ({
     ...initialState,
     update: fn =>
       set(({ update: _, reset: __, ...state }) => {
@@ -47,6 +51,7 @@ export type DatePickerStore = ReturnType<typeof createDatePickerStore>
 interface DatePickerContext {
   refs: DatePickerRefs
   store: DatePickerStore
+  events: DatePickerEvents
 }
 
 export const DatePickerContext = createContext<DatePickerContext | null>(null)

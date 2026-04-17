@@ -1,23 +1,21 @@
-import { type ReactNode, useRef, useState } from 'react'
-import type { GroupImperativeHandle } from 'react-resizable-panels'
+import { type ReactNode, useMemo, useState } from 'react'
 
 import { DateRanges } from '../constants/date-ranges'
 import type { DatePickerProps } from '../types'
 import { createSliderValues } from '../utils/create-slider-values'
-import { createDatePickerStore, DatePickerContext, type DatePickerRefs } from './root'
+import { useContextEvents } from './hooks/use-context-events'
+import { useContextRefs } from './hooks/use-context-refs'
+import { createDatePickerStore, DatePickerContext } from './root'
 
 interface Props extends DatePickerProps {
   children: ReactNode
 }
 
-export function ContextProvider({ children, default_selected }: Props) {
+export function ContextProvider({ children, default_selected, onChange }: Props) {
   const range = DateRanges[4]
 
-  const refs: DatePickerRefs = {
-    slider: {
-      root: useRef<GroupImperativeHandle | null>(null)
-    }
-  }
+  const contextRefs = useContextRefs()
+  const contextEvents = useContextEvents({ onChange })
 
   const [store] = useState(() =>
     createDatePickerStore({
@@ -30,5 +28,10 @@ export function ContextProvider({ children, default_selected }: Props) {
     })
   )
 
-  return <DatePickerContext.Provider value={{ store, refs }}>{children}</DatePickerContext.Provider>
+  const contextValue = useMemo(
+    () => ({ store, events: contextEvents, refs: contextRefs }),
+    [store, contextEvents, contextRefs]
+  )
+
+  return <DatePickerContext.Provider value={contextValue}>{children}</DatePickerContext.Provider>
 }

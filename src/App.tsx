@@ -10,6 +10,7 @@ function App() {
           from: dayjs().toDate(),
           to: dayjs().add(50, 'day').toDate()
         }}
+        onChange={date => console.log('[CHANGED]: ', date)}
       />
     </div>
   )

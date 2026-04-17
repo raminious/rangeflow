@@ -5,4 +5,5 @@ export type DateRange = {
 
 export interface DatePickerProps {
   default_selected: DateRange
+  onChange: (date: DateRange) => void
 }
