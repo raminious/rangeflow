@@ -2,6 +2,7 @@ import clsx from 'clsx'
 import dayjs from 'dayjs'
 import { motion } from 'motion/react'
 import { useMemo } from 'react'
+import { useShallow } from 'zustand/react/shallow'
 
 import { DefaultRangesList } from '../../constants/date-ranges'
 import { useDatePickerStore } from '../../hooks/use-date-picker-store'
@@ -10,16 +11,18 @@ import { useApplySliderLayout } from './hooks/use-apply-slider-layout'
 export function RangeTabs() {
   const list = useDatePickerStore(state => state.ranges)
   const update = useDatePickerStore(state => state.update)
-  const range = useDatePickerStore(state => state.range)
+  const { from, to } = useDatePickerStore(
+    useShallow(state => ({ from: state.range.from, to: state.range.to }))
+  )
 
   useApplySliderLayout()
 
   const activeIndex = useMemo(
     () =>
       DefaultRangesList.findIndex(
-        item => dayjs(item.from).isSame(range.from, 'day') && dayjs(item.to).isSame(range.to, 'day')
+        item => dayjs(item.from).isSame(from, 'day') && dayjs(item.to).isSame(to, 'day')
       ),
-    [range.from, range.to]
+    [from, to]
   )
 
   return (

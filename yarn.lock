@@ -2945,6 +2945,7 @@ __metadata:
     eslint-plugin-tailwindcss: "npm:^4.0.0-alpha.1"
     eslint-plugin-unused-imports: "npm:^4.4.1"
     globals: "npm:^17.4.0"
+    immer: "npm:^11.1.4"
     motion: "npm:^12.38.0"
     motion-plus: "https://api.motion.dev/registry.tgz?package=motion-plus&version=2.10.0&token=924901a20c0ebcbb5d02a033c4af9bb0283aec707a78b61012b5af339b839fe1"
     prettier: "npm:^3.8.3"
@@ -3447,6 +3448,13 @@ __metadata:
   version: 7.0.5
   resolution: "ignore@npm:7.0.5"
   checksum: 10c0/ae00db89fe873064a093b8999fe4cc284b13ef2a178636211842cceb650b9c3e390d3339191acb145d81ed5379d2074840cf0c33a20bdbd6f32821f79eb4ad5d
+  languageName: node
+  linkType: hard
+
+"immer@npm:^11.1.4":
+  version: 11.1.4
+  resolution: "immer@npm:11.1.4"
+  checksum: 10c0/77beca6b0a4e361b30414189d63c64beb7df40ac1d8cbf524308fcbabe755e9aa49db3c6e95a6e412911416fec621f2c8470be5ec79feedc6abd6e4f7f18a9ce
   languageName: node
   linkType: hard
 

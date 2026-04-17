@@ -1,6 +1,7 @@
 import { createContext, type RefObject } from 'react'
 import type { DayPickerProps } from 'react-day-picker'
 import type { GroupImperativeHandle } from 'react-resizable-panels'
+import { immer } from 'zustand/middleware/immer'
 import { createStore } from 'zustand/vanilla'
 
 import type { DateDisabled, DateRange, RangeListItem } from '../types'
@@ -37,18 +38,13 @@ export interface DatePickerActions {
 }
 
 export const createDatePickerStore = (initialState: DatePickerState) => {
-  return createStore<DatePickerState & DatePickerActions>()(set => ({
-    ...initialState,
-    update: fn =>
-      set(({ update: _, reset: __, ...state }) => {
-        const draft = structuredClone(state)
-
-        fn(draft)
-
-        return draft
-      }),
-    reset: () => set(structuredClone(initialState))
-  }))
+  return createStore<DatePickerState & DatePickerActions>()(
+    immer(set => ({
+      ...initialState,
+      update: fn => set(fn),
+      reset: () => set(() => structuredClone(initialState))
+    }))
+  )
 }
 
 export type DatePickerStore = ReturnType<typeof createDatePickerStore>
