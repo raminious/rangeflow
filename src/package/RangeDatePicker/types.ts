@@ -1,4 +1,7 @@
+import type { ComponentProps, ComponentType } from 'react'
 import type { DayPickerProps } from 'react-day-picker'
+
+import type { RangeTabs } from './components/RangeTabs'
 
 export interface RangeListItem {
   label: string
@@ -18,6 +21,10 @@ export type Bounds = {
 
 export type DateDisabled = { before: Date; after?: Date } | { before?: Date; after: Date }
 
+export interface Slots {
+  RangeTabs: ComponentType<ComponentProps<typeof RangeTabs>>
+}
+
 export interface DatePickerProps {
   defaultSelected: DateRange
   defaultRange: DateRange
@@ -26,5 +33,6 @@ export interface DatePickerProps {
   disabled?: DateDisabled
   calendar?: boolean
   CalendarProps?: DayPickerProps
+  Slots?: Slots
   onChange: (date: DateRange) => void
 }

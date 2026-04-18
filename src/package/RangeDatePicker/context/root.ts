@@ -4,7 +4,7 @@ import type { GroupImperativeHandle } from 'react-resizable-panels'
 import { immer } from 'zustand/middleware/immer'
 import { createStore } from 'zustand/vanilla'
 
-import type { Bounds, DateDisabled, DateRange, RangeListItem } from '../types'
+import type { Bounds, DateDisabled, DateRange, RangeListItem, Slots } from '../types'
 
 type UpdaterFunction = (state: DatePickerState) => void
 
@@ -55,6 +55,7 @@ interface DatePickerContext {
   refs: DatePickerRefs
   store: DatePickerStore
   events: DatePickerEvents
+  slots: Slots
 }
 
 export const DatePickerContext = createContext<DatePickerContext | null>(null)

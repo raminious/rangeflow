@@ -2,23 +2,21 @@ import clsx from 'clsx'
 import dayjs from 'dayjs'
 import { motion } from 'motion/react'
 import { useMemo } from 'react'
-import { useShallow } from 'zustand/react/shallow'
 
 import { useDatePickerStore } from '../../hooks/use-date-picker-store'
 import { useApplySliderLayout } from './hooks/use-apply-slider-layout'
 
 export function RangeTabs() {
+  useApplySliderLayout()
+
   const list = useDatePickerStore(state => state.ranges)
   const update = useDatePickerStore(state => state.update)
 
-  const { from, to } = useDatePickerStore(
-    useShallow(state => ({ from: state.range.from, to: state.range.to }))
-  )
+  const from = useDatePickerStore(state => state.range.from)
+  const to = useDatePickerStore(state => state.range.to)
 
   const disabledBefore = useDatePickerStore(state => state.disabled?.before)
   const disabledAfter = useDatePickerStore(state => state.disabled?.after)
-
-  useApplySliderLayout()
 
   const filteredList = useMemo(
     () =>

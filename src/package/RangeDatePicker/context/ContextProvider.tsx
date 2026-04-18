@@ -5,6 +5,7 @@ import type { DatePickerProps } from '../types'
 import { createSliderValues } from '../utils/create-slider-values'
 import { useContextEvents } from './hooks/use-context-events'
 import { useContextRefs } from './hooks/use-context-refs'
+import { useContextSlots } from './hooks/use-context-slots'
 import { createDatePickerStore, DatePickerContext } from './root'
 
 interface Props extends DatePickerProps {
@@ -20,10 +21,12 @@ export function ContextProvider({
   calendar = true,
   ranges = DefaultRangesList,
   CalendarProps,
+  Slots,
   onChange
 }: Props) {
   const contextRefs = useContextRefs()
   const contextEvents = useContextEvents({ onChange })
+  const contextSlots = useContextSlots(Slots)
 
   const [store] = useState(() =>
     createDatePickerStore({
@@ -40,8 +43,8 @@ export function ContextProvider({
   )
 
   const contextValue = useMemo(
-    () => ({ store, events: contextEvents, refs: contextRefs }),
-    [store, contextEvents, contextRefs]
+    () => ({ store, events: contextEvents, refs: contextRefs, slots: contextSlots }),
+    [store, contextEvents, contextRefs, contextSlots]
   )
 
   return <DatePickerContext.Provider value={contextValue}>{children}</DatePickerContext.Provider>
