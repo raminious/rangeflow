@@ -1,10 +1,12 @@
 import dayjs from 'dayjs'
-import { useMemo } from 'react'
+import { createElement, useMemo } from 'react'
 
+import { useDatePickerSlots } from '../../hooks/use-date-picker-slots'
 import { useDatePickerStore } from '../../hooks/use-date-picker-store'
 import { CalendarIcon } from '../../icons/CalendarIcon'
 
 export function SelectedDate() {
+  const { SelectedDate: Slot } = useDatePickerSlots()
   const date = useDatePickerStore(state => state.selected_date)
 
   const { from, to } = useMemo(() => {
@@ -30,6 +32,10 @@ export function SelectedDate() {
 
     return labels
   }, [date.from, date.to])
+
+  if (Slot) {
+    return createElement(Slot, { from, to })
+  }
 
   return (
     <div className="hover:text-accent/90 text-accent flex items-center gap-2 text-xs font-medium select-none">

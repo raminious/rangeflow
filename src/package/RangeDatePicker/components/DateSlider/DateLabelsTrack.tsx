@@ -1,8 +1,9 @@
 import clsx from 'clsx'
 import dayjs from 'dayjs'
-import { memo, useMemo } from 'react'
+import { createElement, memo, useMemo } from 'react'
 
 import { OdometerText } from '../../animations/OdometerText'
+import { useDatePickerSlots } from '../../hooks/use-date-picker-slots'
 import { useDatePickerStore } from '../../hooks/use-date-picker-store'
 import { useDaysInRange } from '../../hooks/use-days-in-range'
 
@@ -35,6 +36,7 @@ function getLabelCount(daysInRange: number): number {
 }
 
 export const DateLabelsTrack = memo(() => {
+  const { DateLabelsTrack: Slot } = useDatePickerSlots()
   const range = useDatePickerStore(state => state.range)
   const daysInRange = useDaysInRange(range)
 
@@ -50,6 +52,10 @@ export const DateLabelsTrack = memo(() => {
       return start.add(totalMs * ratio, 'ms').format(format)
     })
   }, [range.from, range.to, daysInRange])
+
+  if (Slot) {
+    return createElement(Slot)
+  }
 
   return (
     <div

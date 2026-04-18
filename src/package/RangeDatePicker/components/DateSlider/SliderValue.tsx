@@ -1,10 +1,12 @@
 import clsx from 'clsx'
 import dayjs from 'dayjs'
-import { memo, useMemo } from 'react'
+import { createElement, memo, useMemo } from 'react'
 
+import { useDatePickerSlots } from '../../hooks/use-date-picker-slots'
 import { useDatePickerStore } from '../../hooks/use-date-picker-store'
 
 export const SliderValue = memo(() => {
+  const { SliderValueLabel: LabelSlot } = useDatePickerSlots()
   const size = useDatePickerStore(state => state.slider.size)
   const selected = useDatePickerStore(state => state.selected_date)
 
@@ -27,7 +29,7 @@ export const SliderValue = memo(() => {
         'text-xs font-medium text-nowrap text-gray-900'
       )}
     >
-      {label}
+      {LabelSlot ? createElement(LabelSlot, { label }) : label}
     </div>
   )
 })

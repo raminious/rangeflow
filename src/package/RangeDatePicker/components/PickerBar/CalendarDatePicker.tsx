@@ -74,9 +74,9 @@ export function CalendarDatePicker({ children }: Props) {
           showOutsideDays={false}
           {...CalendarProps}
           disabled={disabled}
-          mode="range"
-          min={duration?.min}
           max={duration?.max}
+          min={duration?.min}
+          mode="range"
           selected={date}
           onSelect={nextDate => {
             if (!nextDate?.from || !nextDate?.to) {

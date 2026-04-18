@@ -21,8 +21,21 @@ export type Bounds = {
 
 export type DateDisabled = { before: Date; after?: Date } | { before?: Date; after: Date }
 
+export interface SelectedDateSlotProps {
+  from: string
+  to: string
+}
+
+export interface SliderValueLabelSlotProps {
+  label: string
+}
+
 export interface Slots {
-  RangeTabs: ComponentType<ComponentProps<typeof RangeTabs>>
+  RangeTabs?: ComponentType<ComponentProps<typeof RangeTabs>>
+  DateTickers?: ComponentType
+  DateLabelsTrack?: ComponentType
+  SelectedDate?: ComponentType<SelectedDateSlotProps>
+  SliderValueLabel?: ComponentType<SliderValueLabelSlotProps>
 }
 
 export interface DatePickerProps {

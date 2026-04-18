@@ -1,13 +1,20 @@
-import { memo } from 'react'
+import { createElement, memo } from 'react'
 
+import { useDatePickerSlots } from '../../hooks/use-date-picker-slots'
 import { useDatePickerStore } from '../../hooks/use-date-picker-store'
 import { useDaysInRange } from '../../hooks/use-days-in-range'
 
 export const DateTickers = memo(() => {
+  const { DateTickers: Slot } = useDatePickerSlots()
+
   const tickers = Math.min(
     Math.max(70, useDaysInRange(useDatePickerStore(state => state.range))),
     100
   )
+
+  if (Slot) {
+    return createElement(Slot)
+  }
 
   return (
     <div className="flex items-center gap-2">
