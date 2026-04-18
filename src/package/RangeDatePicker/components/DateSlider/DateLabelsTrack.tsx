@@ -36,9 +36,9 @@ function getLabelCount(daysInRange: number): number {
 }
 
 export const DateLabelsTrack = memo(() => {
-  const { DateLabelsTrack: Slot } = useDatePickerSlots()
   const range = useDatePickerStore(state => state.range)
   const daysInRange = useDaysInRange(range)
+  const { DateLabelsTrack: DateLabelsTrackSlot } = useDatePickerSlots()
 
   const labels = useMemo(() => {
     const format = getLabelFormat(daysInRange)
@@ -53,8 +53,8 @@ export const DateLabelsTrack = memo(() => {
     })
   }, [range.from, range.to, daysInRange])
 
-  if (Slot) {
-    return createElement(Slot)
+  if (DateLabelsTrackSlot) {
+    return createElement(DateLabelsTrackSlot)
   }
 
   return (

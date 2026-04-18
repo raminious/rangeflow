@@ -6,8 +6,8 @@ import { useDatePickerStore } from '../../hooks/use-date-picker-store'
 import { CalendarIcon } from '../../icons/CalendarIcon'
 
 export function SelectedDate() {
-  const { SelectedDate: Slot } = useDatePickerSlots()
   const date = useDatePickerStore(state => state.selected_date)
+  const { SelectedDate: SelectedDateSlot } = useDatePickerSlots()
 
   const { from, to } = useMemo(() => {
     const today = dayjs()
@@ -33,8 +33,8 @@ export function SelectedDate() {
     return labels
   }, [date.from, date.to])
 
-  if (Slot) {
-    return createElement(Slot, { from, to })
+  if (SelectedDateSlot) {
+    return createElement(SelectedDateSlot, { from, to })
   }
 
   return (
