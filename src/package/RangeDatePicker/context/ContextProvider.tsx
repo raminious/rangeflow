@@ -17,6 +17,7 @@ export function ContextProvider({
   defaultSelected,
   disabled,
   duration,
+  calendar = true,
   ranges = DefaultRangesList,
   CalendarProps,
   onChange
@@ -29,6 +30,7 @@ export function ContextProvider({
       ranges,
       disabled,
       duration,
+      calendar,
       range: defaultRange,
       default_range: defaultRange,
       selected_date: defaultSelected,

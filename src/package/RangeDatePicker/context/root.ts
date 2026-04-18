@@ -21,6 +21,7 @@ export interface DatePickerState {
   default_range: DateRange
   disabled?: DateDisabled
   duration?: Bounds
+  calendar?: boolean
   slider: {
     left: number
     right: number

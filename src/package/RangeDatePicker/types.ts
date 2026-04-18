@@ -24,6 +24,7 @@ export interface DatePickerProps {
   ranges?: RangeListItem[]
   duration?: Bounds
   disabled?: DateDisabled
+  calendar?: boolean
   CalendarProps?: DayPickerProps
   onChange: (date: DateRange) => void
 }
