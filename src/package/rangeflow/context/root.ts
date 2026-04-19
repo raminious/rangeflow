@@ -2,7 +2,7 @@ import { createContext, type RefObject } from 'react'
 import type { DayPickerProps } from 'react-day-picker'
 import type { GroupImperativeHandle } from 'react-resizable-panels'
 import { immer } from 'zustand/middleware/immer'
-import { createStore } from 'zustand/vanilla'
+import { createStore, type StoreApi } from 'zustand/vanilla'
 
 import type { Bounds, DateDisabled, DateRange, RangeListItem, Slots } from '../types'
 
@@ -39,7 +39,9 @@ export interface RangeFlowActions {
   reset: () => void
 }
 
-export const createRangeFlowStore = (initialState: RangeFlowState) => {
+export type RangeFlowStore = StoreApi<RangeFlowState & RangeFlowActions>
+
+export const createRangeFlowStore = (initialState: RangeFlowState): RangeFlowStore => {
   return createStore<RangeFlowState & RangeFlowActions>()(
     immer(set => ({
       ...initialState,
@@ -48,8 +50,6 @@ export const createRangeFlowStore = (initialState: RangeFlowState) => {
     }))
   )
 }
-
-export type RangeFlowStore = ReturnType<typeof createRangeFlowStore>
 
 interface RangeFlowContext {
   refs: RangeFlowRefs

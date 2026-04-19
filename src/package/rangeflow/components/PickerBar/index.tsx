@@ -1,10 +1,10 @@
 import { createElement } from 'react'
 
-import { useRangeFlowSlots } from '../../hooks/use-rangeflow-slots.ts'
-import { useRangeFlowStore } from '../../hooks/use-rangeflow-store.ts'
-import { RangeTabs } from '../RangeTabs/index.tsx'
-import { CalendarPopover } from './CalendarPopover.tsx'
-import { SelectedDate } from './SelectedDate.tsx'
+import { useRangeFlowSlots } from '../../hooks/use-rangeflow-slots'
+import { useRangeFlowStore } from '../../hooks/use-rangeflow-store'
+import { RangeTabs } from '../RangeTabs'
+import { CalendarPopover } from './CalendarPopover'
+import { SelectedDate } from './SelectedDate'
 
 export function PickerBar() {
   const calendar = useRangeFlowStore(state => state.calendar)
