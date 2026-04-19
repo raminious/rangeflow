@@ -47,9 +47,9 @@ export function RangeTabs() {
       <div className="flex items-center">
         {filteredList.map((item, index) => (
           <button
-            key={`${item.from.getDate()}_${item.to.getDate()}`}
-            data-active={activeIndex === index || undefined}
+            key={`${item.from.getTime()}_${item.to.getTime()}`}
             className={clsx('rangeflow-tab relative z-1 flex items-center px-1.5 py-1')}
+            data-active={activeIndex === index || undefined}
             onClick={() => {
               update(draft => {
                 draft.range.from = item.from
