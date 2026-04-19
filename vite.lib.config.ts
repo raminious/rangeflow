@@ -6,6 +6,8 @@ import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
 import dts from 'vite-plugin-dts'
 
+const BasePath = 'src/package/RangeDatePicker'
+
 const isExternal = (id: string) => {
   const pkg = JSON.parse(readFileSync(resolve(__dirname, 'package.json'), 'utf8'))
 
@@ -29,9 +31,9 @@ export default defineConfig({
     tailwindcss(),
     dts({
       tsconfigPath: './tsconfig.lib.json',
-      include: ['src/package/RangeDatePicker/**/*'],
+      include: [`${BasePath}/**/*`],
       outDir: 'dist',
-      entryRoot: 'src/package/RangeDatePicker'
+      entryRoot: BasePath
     })
   ],
   publicDir: false,
@@ -41,13 +43,14 @@ export default defineConfig({
     sourcemap: false,
     cssCodeSplit: false,
     lib: {
-      entry: resolve(__dirname, 'src/package/RangeDatePicker/index.tsx'),
+      entry: resolve(__dirname, `${BasePath}/index.tsx`),
       formats: ['es'],
       fileName: () => 'index.js',
       cssFileName: 'style'
     },
     rollupOptions: {
-      external: isExternal
+      external: isExternal,
+      checks: { pluginTimings: false }
     }
   }
 })
