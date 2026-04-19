@@ -43,7 +43,7 @@ export default defineConfig({
     sourcemap: false,
     cssCodeSplit: false,
     lib: {
-      entry: resolve(__dirname, `${BasePath}/index.tsx`),
+      entry: resolve(__dirname, `${BasePath}/entry.ts`),
       formats: ['es'],
       fileName: () => 'index.js',
       cssFileName: 'style'

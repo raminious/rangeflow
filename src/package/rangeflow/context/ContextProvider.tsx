@@ -3,6 +3,7 @@ import { type ReactNode, useMemo, useState } from 'react'
 import { DefaultRangesList } from '../constants/date-ranges'
 import type { RangeFlowProps } from '../types'
 import { createSliderValues } from '../utils/create-slider-values'
+import { useContextApi } from './hooks/use-context-api'
 import { useContextEvents } from './hooks/use-context-events'
 import { useContextRefs } from './hooks/use-context-refs'
 import { useContextSlots } from './hooks/use-context-slots'
@@ -22,6 +23,7 @@ export function ContextProvider({
   ranges = DefaultRangesList,
   CalendarProps,
   Slots,
+  api,
   onChange
 }: Props) {
   const contextRefs = useContextRefs()
@@ -42,8 +44,16 @@ export function ContextProvider({
     })
   )
 
+  // create context api
+  useContextApi(store, contextRefs, api)
+
   const contextValue = useMemo(
-    () => ({ store, events: contextEvents, refs: contextRefs, slots: contextSlots }),
+    () => ({
+      store,
+      events: contextEvents,
+      refs: contextRefs,
+      slots: contextSlots
+    }),
     [store, contextEvents, contextRefs, contextSlots]
   )
 

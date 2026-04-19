@@ -2,6 +2,7 @@ import type { ComponentProps, ComponentType } from 'react'
 import type { DayPickerProps } from 'react-day-picker'
 
 import type { RangeTabs } from './components/RangeTabs'
+import type { RangeFlowRefs, RangeFlowStore } from './context/root'
 
 export interface RangeListItem {
   label: string
@@ -47,5 +48,16 @@ export interface RangeFlowProps {
   calendar?: boolean
   CalendarProps?: DayPickerProps
   Slots?: Slots
+  api?: RangeFlowApi
   onChange: (date: DateRange) => void
+}
+
+export interface RangeFlowApi {
+  readonly __internal: {
+    readonly store: React.RefObject<RangeFlowStore | null>
+    readonly refs: React.RefObject<RangeFlowRefs | null>
+  }
+
+  updateRange: (range: DateRange) => void
+  updateSelectedDates: (dates: DateRange) => void
 }
