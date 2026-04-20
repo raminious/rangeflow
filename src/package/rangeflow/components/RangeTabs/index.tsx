@@ -48,8 +48,10 @@ export function RangeTabs() {
         {filteredList.map((item, index) => (
           <button
             key={`${item.from.getTime()}_${item.to.getTime()}`}
-            className={clsx('rangeflow-tab relative z-1 flex items-center px-1.5 py-1')}
             data-active={activeIndex === index || undefined}
+            className={clsx(
+              'rangeflow-tab relative z-1 flex items-center px-1.5 py-1 focus:outline-none'
+            )}
             onClick={() => {
               update(draft => {
                 draft.range.from = item.from
@@ -68,11 +70,8 @@ export function RangeTabs() {
             {activeIndex === index && (
               <motion.div
                 className="rangeflow-tab-indicator absolute inset-0 rounded-sm bg-(--rangeflow-active-bg)"
+                initial={false}
                 layoutId="tab-indicator"
-                initial={{
-                  x: 0,
-                  y: 0
-                }}
                 transition={{
                   type: 'spring',
                   stiffness: 200,

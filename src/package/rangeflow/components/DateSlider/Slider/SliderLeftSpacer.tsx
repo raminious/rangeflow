@@ -9,7 +9,12 @@ export function SliderLeftSpacer() {
   const [defaultSize] = useState(() => size)
 
   return (
-    <Panel defaultSize={`${defaultSize}%`} id={SLIDER_LEFT_SPACER} minSize={0}>
+    <Panel
+      className="focus:outline-none"
+      defaultSize={`${defaultSize}%`}
+      id={SLIDER_LEFT_SPACER}
+      minSize={0}
+    >
       &nbsp;
     </Panel>
   )
