@@ -61,7 +61,6 @@
     "dayjs": "^1.11.20",
     "immer": "^11.1.4",
     "motion": "^12.38.0",
-    "motion-plus": "https://api.motion.dev/registry.tgz?package=motion-plus&version=2.10.0&token=924901a20c0ebcbb5d02a033c4af9bb0283aec707a78b61012b5af339b839fe1",
     "react-day-picker": "^9.14.0",
     "react-resizable-panels": "^4.10.0",
     "zustand": "^5.0.12"
