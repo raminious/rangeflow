@@ -1,13 +1,15 @@
 import clsx from 'clsx'
 import dayjs from 'dayjs'
 import { motion } from 'motion/react'
-import { useMemo } from 'react'
+import { useId, useMemo } from 'react'
 
 import { useRangeFlowStore } from '../../hooks/use-rangeflow-store'
 import { useApplySliderLayout } from './hooks/use-apply-slider-layout'
 
 export function RangeTabs() {
   useApplySliderLayout()
+
+  const indicatorLayoutId = useId()
 
   const list = useRangeFlowStore(state => state.ranges)
   const update = useRangeFlowStore(state => state.update)
@@ -71,7 +73,7 @@ export function RangeTabs() {
               <motion.div
                 className="rangeflow-tab-indicator absolute inset-0 rounded-sm bg-(--rangeflow-active-bg)"
                 initial={false}
-                layoutId="tab-indicator"
+                layoutId={indicatorLayoutId}
                 transition={{
                   type: 'spring',
                   stiffness: 200,
