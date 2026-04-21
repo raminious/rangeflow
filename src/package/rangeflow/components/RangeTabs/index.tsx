@@ -1,15 +1,13 @@
 import clsx from 'clsx'
 import dayjs from 'dayjs'
-import { motion } from 'motion/react'
-import { useId, useMemo } from 'react'
+import { useMemo } from 'react'
 
 import { useRangeFlowStore } from '../../hooks/use-rangeflow-store'
 import { useApplySliderLayout } from './hooks/use-apply-slider-layout'
+import { useTabIndicator } from './hooks/use-tab-indicator'
 
 export function RangeTabs() {
   useApplySliderLayout()
-
-  const indicatorLayoutId = useId()
 
   const list = useRangeFlowStore(state => state.ranges)
   const update = useRangeFlowStore(state => state.update)
@@ -44,12 +42,22 @@ export function RangeTabs() {
     [filteredList, from, to]
   )
 
+  const { indicatorRef, registerButton } = useTabIndicator(activeIndex, filteredList)
+
   return (
     <div className="rangeflow-tabs flex items-center justify-center select-none">
       <div className="relative flex items-center overflow-hidden">
+        <div
+          ref={indicatorRef}
+          aria-hidden
+          className="rangeflow-tab-indicator pointer-events-none absolute top-0 left-0 rounded-sm bg-(--rangeflow-active-bg) duration-300 ease-[cubic-bezier(0.32,0.72,0,1)]"
+          style={{ opacity: 0 }}
+        />
+
         {filteredList.map((item, index) => (
           <button
             key={`${item.from.getTime()}_${item.to.getTime()}`}
+            ref={registerButton(index)}
             data-active={activeIndex === index || undefined}
             className={clsx(
               'rangeflow-tab relative z-1 flex items-center px-1.5 py-1 focus:outline-none'
@@ -68,19 +76,6 @@ export function RangeTabs() {
             >
               {item.label}
             </span>
-
-            {activeIndex === index && (
-              <motion.div
-                className="rangeflow-tab-indicator absolute inset-0 rounded-sm bg-(--rangeflow-active-bg)"
-                initial={false}
-                layoutId={indicatorLayoutId}
-                transition={{
-                  type: 'spring',
-                  stiffness: 200,
-                  damping: 25
-                }}
-              />
-            )}
           </button>
         ))}
       </div>
