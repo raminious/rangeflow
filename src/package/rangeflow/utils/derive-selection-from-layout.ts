@@ -49,6 +49,6 @@ export function deriveSelectionFromLayout(layout: Layout, range: DateRange) {
     left,
     right,
     from: start.add(startDay, 'day').toDate(),
-    to: start.add(startDay + totalDays, 'day').toDate()
+    to: start.add(startDay + totalDays - 1, 'day').toDate()
   }
 }

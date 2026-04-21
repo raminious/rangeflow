@@ -21,7 +21,7 @@ export function createSliderValues(
   const toDay = dayjs(selected.to).startOf('day')
 
   const pastDays = Math.max(fromDay.diff(rangeStart, 'day'), 0)
-  const selectedDays = Math.max(toDay.diff(fromDay, 'day'), 0)
+  const selectedDays = toDay.diff(fromDay, 'day') + 1
 
   const rawSize = (selectedDays * 100) / daysInRange
   const rawLeft = (pastDays * 100) / daysInRange
