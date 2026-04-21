@@ -1,6 +1,6 @@
 {
   "name": "rangeflow",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "type": "module",
   "description": "A fancy date range picker built with React and Tailwind.",
   "license": "MIT",
