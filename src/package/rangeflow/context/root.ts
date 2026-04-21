@@ -5,9 +5,7 @@ import { createStore, type StoreApi } from 'zustand/vanilla'
 
 import type { Bounds, DateDisabled, DateRange, RangeListItem, Slots } from '../types'
 
-type Updater =
-  | Partial<RangeFlowState>
-  | ((state: RangeFlowState) => Partial<RangeFlowState>)
+type Updater = Partial<RangeFlowState> | ((state: RangeFlowState) => Partial<RangeFlowState>)
 
 export interface RangeFlowRefs {
   slider: {
