@@ -42,6 +42,28 @@ function App() {
         <button
           onClick={() =>
             rangeflow.updateSelectedDates({
+              from: dayjs().subtract(1, 'day').startOf('day').toDate(),
+              to: dayjs().endOf('day').toDate()
+            })
+          }
+        >
+          Select yesterday → today
+        </button>
+
+        <button
+          onClick={() =>
+            rangeflow.updateSelectedDates({
+              from: dayjs().startOf('day').toDate(),
+              to: dayjs().startOf('day').toDate()
+            })
+          }
+        >
+          only today
+        </button>
+
+        <button
+          onClick={() =>
+            rangeflow.updateSelectedDates({
               from: dayjs().subtract(10, 'days').toDate(),
               to: dayjs().subtract(10, 'days').add(3, 'days').toDate()
             })
