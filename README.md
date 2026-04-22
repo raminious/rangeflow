@@ -4,6 +4,13 @@ A fancy date range picker built with React and Tailwind.
 
 RangeFlow gives you a date range picker with a smooth slider, quick range tabs, and a popover calendar. It is built for React 18 and 19, ships with a tiny CSS theming layer, and does not touch your app's global styles.
 
+<a href="https://rangeflow.raminmousavi.dev" target="_blank">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raminmousavi.dev/blog-assets/post-006/rangeflow-hero.png">
+    <img alt="Ramin Mousavi" src="https://raminmousavi.dev/blog-assets/post-006/rangeflow-hero.png">
+  </picture>
+</a>
+
 ## Features
 
 - Drag based range slider that feels natural on mouse and touch.
