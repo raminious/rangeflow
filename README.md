@@ -6,8 +6,8 @@ RangeFlow gives you a date range picker with a smooth slider, quick range tabs, 
 
 <a href="https://rangeflow.raminmousavi.dev" target="_blank">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raminmousavi.dev/blog-assets/post-006/rangeflow-hero-dark.png">
-    <img alt="RangeFlow Hero" src="https://raminmousavi.dev/blog-assets/post-006/rangeflow-hero.png">
+    <source media="(prefers-color-scheme: dark)" srcset="https://raminmousavi.dev/blog-assets/post-006/rangeflow-hero-dark.png?v=1.0">
+    <img alt="RangeFlow Hero" src="https://raminmousavi.dev/blog-assets/post-006/rangeflow-hero.png?v=1.0">
   </picture>
 </a>
 
